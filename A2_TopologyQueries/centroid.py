@@ -3,7 +3,6 @@ from time import time
 import mathutils
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-print(os.path.dirname(os.path.dirname(__file__)))
 from utils import r
 
 def get_centroid(me):

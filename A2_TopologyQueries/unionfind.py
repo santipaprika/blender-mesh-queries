@@ -46,11 +46,6 @@ class UnionFind:
         return self.sz[self.find(p)]
 
 
-    # Return the number of elements in this UnionFind/Disjoint set
-    #def size(self):
-    #    return self.size
-
-
     # Returns the number of remaining components/sets
     def components(self):
         return self.numComponents

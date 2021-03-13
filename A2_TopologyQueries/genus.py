@@ -5,17 +5,22 @@ import sys, os
 sys.path.append(os.getcwd())
 from utils import r
 from unionfind import UnionFind
+from shells import get_shells
 
 
 
-def get_shells(me, debug=True):
-    union_find = UnionFind(len(me.vertices))
-    [union_find.unify(v1, v2) for v1, v2 in [(edge.vertices) for edge in me.edges]]
+def get_genus(me, debug=True):
+
+    # Euler-Poincaré equation: F + V = E + R + 2(S - H).
+    # Then, H = (E + R - F - V)/2 + S.
+    # Blender does not include rings, hence:
+    # H = (E - F - V)/2 + S
+    num_genus = int((len(me.edges) - len(me.polygons) - len(me.vertices)) / 2) + get_shells(me)
 
     if (debug):
-        print("Number of shells: " + str(union_find.components()))
+        print("Number of genus: " + str(num_genus)) 
 
-    return union_find.components()
+    return num_genus    
 
 
 def main(): 
@@ -37,12 +42,12 @@ def main():
     t = time()
 
     # Function that does all the work
-    print("\n--------------- Ex 6. SHELLS -----------------")
-    get_shells(mesh)
-    print("-------------------------------------------------")        
-
-    
+    print("\n--------------- Ex 7. GENUS -----------------")
+    get_genus(mesh)
+    print("-------------------------------------------------") 
 
     # Report performance...
     print("Script took %6.3f secs.\n\n"%(time()-t))
 
+
+main()
