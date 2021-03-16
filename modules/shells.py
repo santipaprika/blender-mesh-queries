@@ -8,10 +8,16 @@ from unionfind import UnionFind
 
 
 
-def get_shells(me, debug=True):
+def define_shells_structure(me):
     union_find = UnionFind(len(me.vertices))
     [union_find.unify(v1, v2) for v1, v2 in [(edge.vertices) for edge in me.edges]]
 
+    return union_find
+    
+
+def get_num_shells(me, debug=True):
+    union_find = define_shells_structure(me)
+    
     if (debug):
         print("Number of shells: " + str(union_find.components()))
 
@@ -38,7 +44,7 @@ def main():
 
     # Function that does all the work
     print("\n--------------- Ex 6. SHELLS -----------------")
-    get_shells(mesh)
+    get_num_shells(mesh)
     print("-------------------------------------------------")        
 
     
@@ -46,3 +52,4 @@ def main():
     # Report performance...
     print("Script took %6.3f secs.\n\n"%(time()-t))
 
+# main()

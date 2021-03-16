@@ -50,14 +50,14 @@ def main():
 
     # Function that does all the work
     valence_avg, valence_max, valence_min = [r(get_valences(mesh)[i]) for i in range(3)]
-    print("\n--------------- Ex 3. VALENCES ---------------")
+    print("\n--------------- VALENCES ---------------")
     print("Average Valence: " + str(valence_avg))
     print("Max Valence: " + str(valence_max))
     print("Min Valence: " + str(valence_min))
     print("----------------------------------------------")
 
     # Report performance...
-    print("Script took %6.2f secs.\n\n"%(time()-t))
+    print("Script took %6.3f secs.\n\n"%(time()-t))
 
 
-main()
+# main()

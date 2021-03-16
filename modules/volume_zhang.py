@@ -5,15 +5,30 @@ import sys, os
 sys.path.append(os.getcwd())
 from utils import r
 from area import get_polygon_area
+from manifolds import get_non_manifold_shells
 
+
+# Volume computation based on:
+# Zhang, C., & Chen, T. (2001, October). Efficient feature extraction for 2D/3D objects in mesh representation. 
+# In Proceedings 2001 International Conference on Image Processing (Cat. No. 01CH37205) (Vol. 3, pp. 935-938). IEEE.
+# https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.20.9775&rep=rep1&type=pdf  
 
 def get_volume(me, debug=True):
 
     total_volume = 0
 
+    # get non-manifold shells
+    non_manifold_shells, union_find = get_non_manifold_shells(me)
+
     for polygon in me.polygons:
         
+        # find if polygon belongs to a connected component by checking the shell of a vertex of the polygon
+        # find takes amortized constant time because of union find path compression
+        if union_find.find(polygon.vertices[0]) in non_manifold_shells:
+            continue
+
         area_polygon = get_polygon_area(me, polygon, False)
+        #area_polygon = polygon.area     # blender attribute (slightly faster)
         
         # To compute the volume, we will add the signed volume that every polygon forms with the origin
         # Each volume will be a pyramid with an already known base:
@@ -51,7 +66,7 @@ def main():
     t = time()
 
     # Function that does all the work
-    print("\n--------------- Ex 9. VOLUME -----------------")
+    print("\n--------------- VOLUME -----------------")
     get_volume(mesh)
     print("-------------------------------------------------") 
 
@@ -59,4 +74,4 @@ def main():
     print("Script took %6.3f secs.\n\n"%(time()-t))
 
 
-main()
+# main()

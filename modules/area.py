@@ -10,8 +10,10 @@ def get_polygon_area(me, polygon, debug=True):
     vidx = polygon.vertices
     len_vertices = len(vidx)
 
-    # Formulae of general polygon area (compatible with concave polygons as well):
-    # A = 1/2 * sum for all i < len(V) of (v_i X v_(i+1))
+    # Add up signed area of every triangle joining the origin and two consecutive vertices:
+    # Area_OAB = 1/2 * (OA x OB), where A and B are consecutive vertices. 
+    # iterating for all triangles (compatible with concave polygons as well):
+    # Area = 1/2 * sum for all i < len(V) of (v_i X v_(i+1))
     cross_comps = [me.vertices[vidx[i]].co.cross(me.vertices[vidx[(i+1) % len_vertices]].co) for i in range(len_vertices)]
     area_polygon = mathutils.Vector()
     for i in range(len_vertices):
@@ -22,7 +24,6 @@ def get_polygon_area(me, polygon, debug=True):
         print("Blender: " + str(r(polygon.area)))
 
     return area_polygon.length
-
 
 def get_area(me, debug=True):
 
@@ -38,7 +39,7 @@ def get_area(me, debug=True):
 
     if debug:
         print("Total surface area (own method): " + str(r(total_area)))
-        print("Total surface area (bledn method): " + str(r(total_blender)))
+        print("Total surface area (blender method): " + str(r(total_blender)))
         
 
 def main(): 
@@ -60,9 +61,12 @@ def main():
     t = time()
 
     # Function that does all the work
-    print("\n--------------- Ex 8. AREA -----------------")
+    print("\n--------------- AREA -----------------")
     get_area(mesh)
     print("-------------------------------------------------") 
 
     # Report performance...
     print("Script took %6.3f secs.\n\n"%(time()-t))
+
+
+# main()

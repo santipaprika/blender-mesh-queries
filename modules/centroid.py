@@ -34,10 +34,13 @@ def main():
 
     # Function that does all the work
     centroid = [r(get_centroid(mesh)[i]) for i in range(3)]
+    print("\n--------------- CENTROID -----------------")
     print("Centroid: " + str(centroid))
+    print("\n---------------------------------------")
+
 
     # Report performance...
     print("Script took %6.2f secs.\n\n"%(time()-t))
 
 
-main()
+# main()
