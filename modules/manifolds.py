@@ -2,7 +2,7 @@ import bpy
 from time import time
 import mathutils
 import sys, os
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import r
 from shells import define_shells_structure
 
@@ -83,4 +83,6 @@ def main():
     # Report performance...
     print("Script took %6.2f secs.\n\n"%(time()-t))
 
-# main()
+
+if __name__ == "__main__":
+   main()

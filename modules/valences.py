@@ -2,8 +2,7 @@ import bpy
 from time import time
 import mathutils
 import sys, os
-sys.path.append(os.getcwd())
-print(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import r
 
 def get_valences(me):
@@ -60,4 +59,5 @@ def main():
     print("Script took %6.3f secs.\n\n"%(time()-t))
 
 
-# main()
+if __name__ == "__main__":
+   main()

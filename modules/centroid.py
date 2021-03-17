@@ -2,7 +2,7 @@ import bpy
 from time import time
 import mathutils
 import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import r
 
 def get_centroid(me):
@@ -43,4 +43,5 @@ def main():
     print("Script took %6.2f secs.\n\n"%(time()-t))
 
 
-# main()
+if __name__ == "__main__":
+   main()

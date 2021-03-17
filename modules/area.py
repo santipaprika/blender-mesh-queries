@@ -2,7 +2,7 @@ import bpy
 from time import time
 import mathutils
 import sys, os
-sys.path.append(os.getcwd())
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import r
 
 def get_polygon_area(me, polygon, debug=True):
@@ -20,8 +20,8 @@ def get_polygon_area(me, polygon, debug=True):
         area_polygon += cross_comps[i]
     
     if debug:
-        print("Own: " + str(r(area_polygon.length/2)))
-        print("Blender: " + str(r(polygon.area)))
+        print("Polygon area (own method): " + str(r(area_polygon.length/2)))
+        print("Polygon area (blender attribute): " + str(r(polygon.area)))
 
     return area_polygon.length
 
@@ -38,8 +38,9 @@ def get_area(me, debug=True):
         total_blender += polygon.area
 
     if debug:
+        print("************************************")
         print("Total surface area (own method): " + str(r(total_area)))
-        print("Total surface area (blender method): " + str(r(total_blender)))
+        print("Total surface area (blender attribute): " + str(r(total_blender)))
         
 
 def main(): 
@@ -69,4 +70,5 @@ def main():
     print("Script took %6.3f secs.\n\n"%(time()-t))
 
 
-# main()
+if __name__ == "__main__":
+   main()
